@@ -2,7 +2,16 @@
 # coding: utf-8
 
 require 'opencv'
+require 'active_record'
+require 'yaml'
+
+dbconfig = YAML.load_file( 'config/database.yml' )
+ActiveRecord::Base.establish_connection(dbconfig[ENV['ENV']])
+
+class VisitorLog < ActiveRecord::Base; end
+
 include OpenCV
+
 
 camera = CvCapture.open(0)
 window = GUI::Window.new('camera')
@@ -14,7 +23,9 @@ while true
   image = camera.query
   now = Time.now
   puts "#{now}.#{now.usec}:"
-  detector.detect_objects(image).each do |region|
+  obj = detector.detect_objects(image)
+  VisitorLog.create!(visit_at: now, visit_count: obj.count) if obj.count > 0
+  obj.each do |region|
     puts "#{now}.#{now.usec}: (#{region.top_left.x}, #{region.top_left.y}, #{region.bottom_right.x}, #{region.bottom_right.y})"
     color = CvColor::Blue
     image.rectangle! region.top_left, region.bottom_right, :color => color
