@@ -1,0 +1,10 @@
+production:
+  adapter:  mysql2
+  host:     localhost
+  username: xxxxxxxx
+  password: xxxxxxxx
+  database: xxxxxxxx
+
+development:
+  adapter:  sqlite3
+  database: db/visitor_log.sqlite3
