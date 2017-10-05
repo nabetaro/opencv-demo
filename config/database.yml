@@ -1,9 +1,12 @@
 production:
   adapter:  mysql2
-  host:     localhost
-  username: xxxxxxxx
-  password: xxxxxxxx
-  database: xxxxxxxx
+  host:     192.168.1.104
+  encoding: utf8
+  reconnect: false
+  database: fortune_telling_development
+  pool: 5
+  username: user1
+  password: user1
 
 development:
   adapter:  sqlite3
