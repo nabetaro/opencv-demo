@@ -13,7 +13,7 @@ class VisitorLog < ActiveRecord::Base; end
 include OpenCV
 
 
-camera = CvCapture.open(0)
+camera = CvCapture.open(1)
 window = GUI::Window.new('camera')
 detector = CvHaarClassifierCascade::load '/usr/share/opencv/haarcascades/haarcascade_frontalface_alt2.xml'
 i = 0
@@ -34,10 +34,8 @@ while true
     end
     window.show image
     i = 0
-    sleep 0.1
   end
   i += 1
-#  window.show image
 
   key = GUI::wait_key 1
 
